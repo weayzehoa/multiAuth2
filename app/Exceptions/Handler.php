@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+//新增以下使用兩個class
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Arr;
 
@@ -55,7 +56,6 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
-
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
@@ -64,15 +64,16 @@ class Handler extends ExceptionHandler
 
         $guard = Arr::get($exception->guards(), 0);
 
-       switch ($guard) {
-         case 'admin':
-           $login='admin.login';
-           break;
+        //用來判斷是前台還是後台來的使用者並轉到正確的登入頁面
+        switch ($guard) {
+            case 'admin':
+            $login='admin.login';
+            break;
 
-         default:
-           $login='login';
-           break;
-       }
+            default:
+            $login='login';
+            break;
+        }
 
         return redirect()->guest(route($login));
     }

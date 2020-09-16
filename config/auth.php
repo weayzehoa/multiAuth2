@@ -46,7 +46,7 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-
+        //提供給後台管理登入用
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -80,7 +80,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
+        //使用admins資料表
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
